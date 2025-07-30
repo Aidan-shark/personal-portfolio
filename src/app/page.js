@@ -1,7 +1,5 @@
-import Hero from "../components/sub/Hero";
-
-
-
+"use client"
+import Hero from '../components/sub/Hero';
 
 
 export default function Home() {
