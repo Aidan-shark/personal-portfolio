@@ -1,7 +1,13 @@
 "use client";
 import Image from 'next/image';
+import { heroIcons } from "@/assets";
+;
+
+
 
 const Hero = () => {
+   console.log("Rendering heroIcons:", heroIcons);
+
   return (
     <div className="h-screen grid place-items-center">
       <div className="text-center space-y-4">
@@ -22,12 +28,28 @@ const Hero = () => {
         <p className="text-lg tracking-wider text-gray-500">
           I am a third-year Computer Science student at the University of Wollongong.
         </p>
-        <div className="flex justify-center space-x-6 pt-5">
-          <a href="#" className="text-yellow-400 hover:underline">
-            Icon</a>
-          <a href="#" className="mx-auto mt-7 block w-max rounded-lg bg-yellow-700 px-3 py-1 font-light capitilize tracking-wider
-          text-white hover:bg-yellow-400 transition-colors">Talk to me</a>
-        </div>
+         <div className="flex justify-center space-x-6 pt-5">
+
+             {Array.isArray(heroIcons) && heroIcons.map(({ icon, url }, i) => (
+        <a
+             key={i}
+             href={url}
+             target="_blank"
+             rel="noopener noreferrer"
+             className="text-white hover:text-yellow-400 text-5xl transition-all duration-200"
+       >
+           {icon}
+       </a>
+          ))}
+
+
+         <a href="#" className="mx-auto mt-7 block w-max rounded-lg bg-yellow-400 px-3 py-1 font-light capitalize tracking-wider
+           text-white hover:bg-yellow-600 transition-colors">
+         Talk to me
+        </a>
+           </div>
+
+
       </div>
     </div>
   );
