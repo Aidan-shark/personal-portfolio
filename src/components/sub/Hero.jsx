@@ -1,12 +1,12 @@
 "use client";
 import Image from 'next/image';
 import { heroIcons } from "@/assets";
-import { useMotionValue } from "framer-motion"
-import { usestate } from "react"
+import { useMotionValue, useTransform, motion} from "framer-motion"
+import { useState } from "react"
 
 const Hero = () => {
-  const [windowOffset, setWindowsOffset] = usestate({ innerwidth: 0, innerheight: 0})
-  const [mouseMove, setMouseMove] = usestate(flase)
+  const [windowOffset, setWindowsOffset] = useState({ innerWidth: 0, innerheight: 0})
+  const [mouseMove, setMouseMove] = useState(false)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
@@ -19,28 +19,42 @@ const Hero = () => {
 
   };
   const handleMouseEnter = () => {
-    setWindowsOffset({innerwidth: window.innerWidth, innerHeight: window.innerHeight})
+    setWindowsOffset({innerWidth: window.innerWidth, innerHeight: window.innerHeight}) 
+    setMouseMove(true)
 
+    console.log(innerWidth, innerHeight)
 
+  };
 
-  }
-  console.log("Rendering heroIcons:", heroIcons);
+  const {innerWidth, innerHeight} = windowOffset
+  const rotateY = useTransform(x, [0, innerWidth], [-30, 30])
+  const rotateX = useTransform(y, [0, innerHeight], [10, -50])
 
   return (
-    <div className="h-screen grid place-items-center" onMouseMove={handleMouseMove}>
-      <div className="text-center space-y-4">
+    <div className="h-screen grid place-items-center" 
+    onMouseMove={handleMouseMove}
+    onMouseEnter={handleMouseEnter}
+    >
+        <div className="text-center space-y-4">
         <div className="flex flex-col items-center justify-center gap-y-3 font-light capitalize">
-          <div className="flex items-center justify-center relative"> 
-            <Image 
+          <motion.div
+            className="flex items-center justify-center relative"
+            style={{
+              rotateX: mouseMove ? rotateX : 0,
+              rotateY: mouseMove ? rotateY : 0,
+              transition: "0.1s",
+            }}
+          >
+            <Image
               src="/LittleGuy.png"
-              alt="Personal Image" 
-              width={100} 
-              height={100} 
-              priority={true}
+              alt="Personal Image"
+              width={100}
+              height={100}
+              priority
               className="h-auto w-[150px]"
             />
             <span className="absolute text-3xl font-semibold text-white">Hello there</span>
-          </div>
+          </motion.div>
         </div>
 
         <h1 className="text-center text-3xl font-bold tracking-wider text-gray-400">
