@@ -1,12 +1,13 @@
 "use client";
 import Image from 'next/image';
 import { heroIcons } from "@/assets";
-import { useMotionValue, useTransform, motion} from "framer-motion"
+import { useMotionValue, useTransform, motion, useSpring } from "framer-motion"
 import { useState } from "react"
 
 const Hero = () => {
   const [windowOffset, setWindowsOffset] = useState({ innerWidth: 0, innerheight: 0})
   const [mouseMove, setMouseMove] = useState(false)
+  const [buttonHover, setButtonHover] = useState(false)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
@@ -27,8 +28,13 @@ const Hero = () => {
   };
 
   const {innerWidth, innerHeight} = windowOffset
-  const rotateY = useTransform(x, [0, innerWidth], [-30, 30])
-  const rotateX = useTransform(y, [0, innerHeight], [10, -50])
+
+  const xSpring = useSpring(x, {stiffnesss: 100, damping: 30})
+  const ySpring = useSpring(y, {stiffnesss: 100, damping: 30})
+
+
+  const rotateY = useTransform(xSpring, [0, innerWidth], [-30, 30])
+  const rotateX = useTransform(ySpring, [0, innerHeight], [10, -50])
 
   return (
     <div className="h-screen grid place-items-center" 
@@ -53,11 +59,21 @@ const Hero = () => {
               priority
               className="h-auto w-[150px]"
             />
-            <span className="absolute text-3xl font-semibold text-white">Hello there</span>
+            <motion.span className="absolute text-3xl font-semibold text-white"
+            initial={{scale: 0}}
+            animate={{
+              opacity: buttonHover ? 0 : 1,
+              scale: buttonHover ? 2 : 0,
+              y: buttonHover ? -40 : 0,
+            }}
+            transition={{ opacity: { delay:0.4 }}}>
+              
+              Hello there
+              </motion.span>
           </motion.div>
         </div>
 
-        <h1 className="text-center text-3xl font-bold tracking-wider text-gray-400">
+        <h1 className="text-center text-3xl font-bold tracking-wider text-gray-400 sm:text-2xl">
           My name is Aidan Habibi
         </h1>
 
@@ -73,7 +89,7 @@ const Hero = () => {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-3xl text-yellow-500 hover:text-white hover:bg-red-500 p-2 rounded-lg transition-colors"
+              className="text-3xl text-yellow-500 hover:text-white hover:bg-red-500 p-2 rounded-lg transition-colors sm:text-2xl"
             >
               {icon}
             </a>
@@ -85,6 +101,10 @@ const Hero = () => {
           href="#" 
           className="mx-auto mt-8 block w-max rounded-lg bg-yellow-400 px-4 py-2 font-light capitalize tracking-wider
             text-white hover:bg-yellow-700 transition-colors"
+             onMouseEnter={() => setButtonHover(true)}
+             onMouseLeave={() => setButtonHover(false)}
+
+       
         >
           Talk to me
         </a>
