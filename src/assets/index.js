@@ -5,15 +5,18 @@ import DribbbleLineIcon from 'remixicon-react/DribbbleLineIcon';
 
 export const heroIcons = [
   {
-    icon: <LinkedinLineIcon />,
+    id: "linkedin",
+    icon: <LinkedinLineIcon className="w-6 h-6" aria-label="LinkedIn" />,
     url: "https://linkedin.com/in/your-profile"
   },
   {
-    icon: <GithubLineIcon />,
+    id: "github",
+    icon: <GithubLineIcon className="w-6 h-6" aria-label="GitHub" />,
     url: "https://github.com/your-username"
   },
   {
-    icon: <DribbbleLineIcon />,
+    id: "dribbble",
+    icon: <DribbbleLineIcon className="w-6 h-6" aria-label="Dribbble" />,
     url: "https://dribbble.com/your-profile"
   }
 ];
