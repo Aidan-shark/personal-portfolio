@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { HiDocumentCheck } from "react-icons/hi2";
+
 import "./globals.css";
 
 // Register fonts

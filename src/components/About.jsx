@@ -3,6 +3,8 @@ import Heading from './sub/Heading'
 import Achievement from './sub/Achievement'
 import Image from 'next/image'
 import { FaGithub, FaProjectDiagram } from "react-icons/fa";
+import { HiDocumentCheck } from "react-icons/hi2";
+
 
 
 
@@ -12,19 +14,20 @@ const About = () => {
     {
       id: 1,
       title: "Github Repos",
-      amount: "348",
+      amount: "7",
       icon: <FaGithub className="w-8 h-8 text-yellow-500" />,
     },
     {
       id: 2,
       title: "Certificates",
-      amount: "12",
-      icon: <FaProjectDiagram className="w-8 h-8 text-yellow-500" />,
+      amount: "4",
+      icon: <HiDocumentCheck className="w-8 h-8 text-yellow-500" />,
     },
+
     {
       id: 3,
       title: "Projects",
-      amount: "12",
+      amount: "8",
       icon: <FaProjectDiagram className="w-8 h-8 text-yellow-500" />,
     },
 
